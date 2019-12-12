@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors')
+
 
 
 const MONGODB_URI = 'mongodb://auction:auction2020@ds253368.mlab.com:53368/auction_xactly'
@@ -27,6 +29,7 @@ mongoose.connection.on('error', (err) => {
 /**
  * Express configuration
  */
+app.use(cors())
 app.set('port', process.env.PORT ||  8080);
 app.use(logger('dev'));
 app.use(bodyParser.json());
