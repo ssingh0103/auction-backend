@@ -38,6 +38,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const entityRoutes = require('./entity/routes');
 app.use('/entity',entityRoutes);
 
+const itemRoutes = require('./item/routes');
+app.use('/item',itemRoutes);
+
+
+const bidHistoryRoutes = require('./bidHistory/routes');
+app.use('/bidHistory',bidHistoryRoutes);
 /**
  * Start Express server.
  */
