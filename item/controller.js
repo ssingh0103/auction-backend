@@ -65,6 +65,7 @@ exports.updateOne =async (req,res)=>{
 }
 
 exports.updateHighBid = async (req,res)=>{
+    console.log(req.body);
     try{
         let id = req.params.id;
         let newBidHistory = new BidHistory({
