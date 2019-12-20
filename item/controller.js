@@ -23,7 +23,8 @@ exports.createOne = async (req,res)=>{
             incrementBid: req.body.incrementBid,
             highestBid: req.body.highestBid,
             highestBidderEmail: req.body.highestBidderEmail,
-            highestBidderName: req.body.highestBidderName
+            highestBidderName: req.body.highestBidderName,
+            images: req.body.images
         });
         let obj = await newItem.save();
         res.send(obj)
@@ -117,4 +118,9 @@ exports.updateHighBid = async (req,res)=>{
     }catch(e){
         res.send({'err':e});
     }
+}
+
+exports.saveImage = (req,res)=>{
+    console.log('Saving');
+    console.log(req.body);
 }

@@ -29,6 +29,10 @@ const itemSchema = new mongoose.Schema({
     highestBidderName: {
         type: String,
         default: null
+    },
+    images :{
+        type: Array,
+        default: []
     }
 })
 

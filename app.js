@@ -4,6 +4,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors')
 
+process.env.PWD = process.cwd()
 
 
 const MONGODB_URI = 'mongodb://auction:auction2020@ds253368.mlab.com:53368/auction_xactly'
@@ -34,6 +35,8 @@ app.set('port', process.env.PORT ||  8080);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(process.env.PWD + '/uploads'));
+
 
 /**
  * Entity Routes
