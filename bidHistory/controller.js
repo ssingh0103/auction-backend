@@ -1,6 +1,6 @@
 
 const BidHistory = require('./model');
-
+const Item = require('../item/model');
 exports.createItemHistory= async (body)=>{
     try{
         let bidHistory = new BidHistory({
@@ -54,8 +54,30 @@ exports.getOne = async (req,res)=>{
 exports.deleteOne= async (req,res)=>{
     try{
         let id = req.params.id;
+         bid = await BidHistory.findById(id);
         await BidHistory.findByIdAndDelete(id);
-        res.send('Deleted');
+
+        const b = await  BidHistory.find({itemId:bid.itemId})
+        let max =0;
+        let lastOne =null;
+        let lastName= null
+        b.forEach(item=>{
+            if(item.highestBid>max){
+                max = item.highestBid
+                lastOne = item.highestBidderEmail
+                lastName =  item.highestBidderName
+            }
+        })
+        
+
+        Item.findOne({ _id: bid.itemId }, function (err, doc){
+            doc.highestBid = max;
+            doc.highestBidderEmail = lastOne;
+            doc.highestBidderName = lastName;
+            doc.save();
+            res.send('Deleted');
+
+          });
     }catch(e){
         res.send({'err':e})
     }

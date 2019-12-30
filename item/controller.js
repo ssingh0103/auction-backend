@@ -68,14 +68,13 @@ exports.updateOne =async (req,res)=>{
     }
 }
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-        user: 'margarette.dickens@ethereal.email',
-        pass: 'JrCVsEy6p1GnMRaEXf'
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth : {
+        user: 'xactlyauction@gmail.com',
+        pass: '39fkYf31QQV6'
     }
-});
+})
 
   
 exports.updateHighBid = async (req,res)=>{
@@ -97,12 +96,12 @@ exports.updateHighBid = async (req,res)=>{
                 lastOne = item.highestBidderEmail
             }
         })
-      
+        let msg =`You have been outbidded for item with title: ${req.body.title} and identifier: ${req.body.identifier}`;
         var mailOptions = {
-            from: 'agavaqif@gmail.com',
+            from: 'xactlyauction@gmail.com',
             to: lastOne,
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
+            subject: 'You have been outbidded in xactly auctio',
+            text: msg
           };
         let obj = await newBidHistory.save();
 
@@ -118,9 +117,4 @@ exports.updateHighBid = async (req,res)=>{
     }catch(e){
         res.send({'err':e});
     }
-}
-
-exports.saveImage = (req,res)=>{
-    console.log('Saving');
-    console.log(req.body);
 }
